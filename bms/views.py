@@ -1,5 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from blog.models import Blog
+from django.utils import timezone
 
 # Client Side Views
 def aboutUS(request):
@@ -33,3 +35,12 @@ def updateBlogAdmin(request):
 def blogListAdmin(request):
     return render(request, 'bloglist.html')
 
+
+def home(request):
+    recent_blogs = Blog.objects.filter(created_at__lte=timezone.now()).order_by('-created_at')
+    featured_blogs = Blog.objects.filter(featured=True, created_at__lte=timezone.now()).order_by('-created_at')[:4]
+
+    return render(request, 'home.html', {
+        'recent_blogs': recent_blogs,
+        'featured_blogs': featured_blogs,
+    })
