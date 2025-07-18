@@ -19,7 +19,7 @@ from django.contrib import admin
 from django.urls import include, path
 from django.conf.urls.static import static
 from bms import views
-from bms import media
+
 
 # Serve static files during development
 auth_urlpatterns = [
